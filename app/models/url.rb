@@ -1,7 +1,13 @@
 class Url < ApplicationRecord
+  DEFAULT_NUMBER_FOR_MOST_POPULAR = 100
+
   after_create_commit :create_short_url
   validates_presence_of :full_url
   validates_uniqueness_of :full_url
+
+  scope :most_popular, lambda { |qty = DEFAULT_NUMBER_FOR_MOST_POPULAR|
+    order(hit_counter: :desc).limit(qty)
+  }
 
   private
 
