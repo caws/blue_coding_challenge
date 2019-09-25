@@ -5,6 +5,12 @@ class Url < ApplicationRecord
   validates_presence_of :full_url
   validates_uniqueness_of :full_url
 
+  # The scope below returns the most popular URLs in
+  # the database. It can receive a qty parameters, thus
+  # limiting the number of results in the list.
+  # If no parameter is passed, it'll default to the
+  # integer value stored in the DEFAULT_NUMBER_FOR_MOST_POPULAR
+  # constant.
   scope :most_popular, lambda { |qty = DEFAULT_NUMBER_FOR_MOST_POPULAR|
     order(hit_counter: :desc).limit(qty)
   }
