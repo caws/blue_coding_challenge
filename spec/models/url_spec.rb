@@ -42,6 +42,15 @@ RSpec.describe Url, type: :model do
       end
     end
 
+    describe '#find_and_increase_counter' do
+      it 'should try to find and increase the hit_counter' do
+        previous_counter = url.hit_counter
+        found_url = Url.find_and_increase_counter(url.short_url)
+        expect(found_url).to match(url)
+        expect(found_url.hit_counter).to match(previous_counter + 1)
+      end
+    end
+
     describe '#increase_hit_counter' do
       it 'should increase the hit_counter' do
         previous_counter = url.hit_counter
