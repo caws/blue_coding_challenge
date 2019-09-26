@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xl-9 mx-auto">
-        <h1 class="mb-5">100 Most Popular URLs</h1>
+        <h1 class="mb-5"><%= @most_popular_urls.count %> Most Popular URLs</h1>
       </div>
       <div class="col-md-12  mx-auto" id="form-div">
         <% if @most_popular_urls.count.positive? %>
