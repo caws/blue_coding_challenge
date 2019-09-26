@@ -1,0 +1,47 @@
+<header class="masthead text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h1 class="mb-5">100 Most Popular URLs</h1>
+      </div>
+      <div class="col-md-12  mx-auto" id="form-div">
+        <% if @most_popular_urls.count.positive? %>
+          <table class="table border">
+            <thead>
+            <tr>
+              <th>Number of Hits</th>
+              <th>Shortened URL</th>
+              <th>Full URL</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @most_popular_urls.each do |url| %>
+              <tr>
+                <th scope="row"><%= url.hit_counter %></th>
+                <td>
+                  <%= link_to generate_url(url.short_url), target: '_blank' do %>
+                    <%= generate_url(url.short_url) %>
+                  <% end %>
+                </td>
+                <td><%= url.full_url %></td>
+                <td><%= url.page_title || 'No Title' %></td>
+                <td><%= generate_badge(url) %></td>
+                <td colspan="2">
+                  <%= link_to generate_url(url.short_url), role: 'button', class: 'btn btn-primary' do %>
+                    Visit URL
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <h3 class="text-center">Nothing to show for now</h3>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>

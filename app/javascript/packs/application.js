@@ -18,3 +18,6 @@ require("channels")
 import 'jquery'
 import 'bootstrap'
 import '../stylesheets/application'
+
+window.jQuery = $;
+window.$ = $;

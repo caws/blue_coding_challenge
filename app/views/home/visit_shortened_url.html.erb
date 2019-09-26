@@ -1,0 +1,66 @@
+<header class="masthead text-center">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h1 class="mb-5">Cool URL shortener!</h1>
+      </div>
+      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto" id="form-div">
+        <% if @url %>
+          <h3>
+            <span id="counter_and_message">6s until you visit the following URL:</span> <a id="full-url" href="<%= @url.full_url %>"><%= @url.full_url %></a>
+          </h3>
+          <div class="m-3">
+            <%= button_tag 'Cancel Redirection', onclick: 'cancelRedirection()', class: 'btn btn-success' %>
+            <%= button_tag 'Copy URL', onclick: 'copyLink()', class: 'btn btn-primary' %>
+          </div>
+        <% else %>
+          <h3>
+            <span>No result for you today.</span>
+          </h3>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+    function copyLink() {
+        var hrefAttribute = document.getElementById('full-url').getAttribute('href');
+        var finalAttribute = document.createElement('input');
+        document.body.appendChild(finalAttribute);
+        finalAttribute.value = hrefAttribute;
+        finalAttribute.select();
+        document.execCommand("copy", false);
+        finalAttribute.remove();
+    };
+
+    var redirectionCanceled = false;
+
+    function cancelRedirection() {
+        redirectionCanceled = true;
+        document.getElementById("counter_and_message").innerHTML = "Canceled redirection to:";
+        return;
+    }
+
+    var countDownDate = new Date().getTime() + (6 * 1000);
+    var x = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("counter_and_message").innerHTML = seconds + "s until you visit the following URL:";
+
+        if (redirectionCanceled) {
+            clearInterval(x);
+            document.getElementById("counter_and_message").innerHTML = "Canceled redirection to:";
+            return;
+        }
+
+        if (distance <= 0) {
+            clearInterval(x);
+            document.getElementById("counter_and_message").innerHTML = "Redirecting you to:";
+            document.getElementById("full-url").click();
+            return;
+        }
+    }, 1000);
+</script>
