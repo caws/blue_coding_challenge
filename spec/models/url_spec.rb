@@ -10,7 +10,7 @@ RSpec.describe Url, type: :model do
 
   describe 'public class methods' do
     describe '#most_popular' do
-      before(:each) do
+      before(:all) do
         0.upto(200) do
           FactoryBot.create(:url, hit_counter: rand(60))
         end
@@ -31,12 +31,26 @@ RSpec.describe Url, type: :model do
         end
       end
     end
+
+    describe '#pull_title_and_set_status' do
+      it 'should update the url status' do
+        previous_status = url.status
+        url.pull_title_and_set_status
+        expect(Url.most_popular(50)).not_to be(previous_status)
+      end
+    end
   end
 
   describe 'private instance methods' do
     describe '#shorten_url' do
       it 'should shorten the full_url and save it to short_url with lenght <= 6' do
         expect(url.short_url.length).to be <= 6
+      end
+    end
+
+    describe '#pull_title_from_website_later' do
+      it 'should pull the title from full_url later' do
+        expect {url}.to have_enqueued_job
       end
     end
   end
