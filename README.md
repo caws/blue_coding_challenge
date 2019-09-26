@@ -1,24 +1,50 @@
-# README
+# URL Shortener Challenge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### The challenge
 
-Things you may want to cover:
+Your mission, should you choose to accept it, is to make a URL shortener API.
 
-* Ruby version
+### Prerequisites
 
-* System dependencies
+```
+Rails 6.0.0
+Ruby 2.6.3
+```
 
-* Configuration
+### Getting Started
 
-* Database creation
+* Clone the project
+* rake:db create db:migrate db:seed
+* bundle install
+* rails s
 
-* Database initialization
+### Shortening algorithm - The core of this application
 
-* How to run the test suite
+The shortening algorithm behind this application is a very basic one in nature.
 
-* Services (job queues, cache servers, search engines, etc.)
+It works by changing the base of the ID that points to a given record in the database
+that holds a given URL.
 
-* Deployment instructions
+After a URL is validated and saved to the database, a callback is invoked and it
+quickly does the following:
 
-* ...
+    * 1. Queues a job to visit the URL later at some point and grab its title, while
+       also checking if it is Up or Down and updating the records's status accordingly'.
+       
+    * 2. Invokes the create_short_url method which basically updates the short
+       url attribute with the base-changed ID of the record being handled.  
+
+PS: If a user tries to shorten a URL that was already shortened, the application
+    behaves the same way it would if said URL was never shortened, however all it
+    does is offer the short_url already in the database for the full URL provided.
+
+### Built With
+   * [Factory_bot](https://github.com/thoughtbot/factory_bot)
+   * [Faker](https://github.com/stympy/faker)
+   * [Postgres](https://bitbucket.org/ged/ruby-pg/wiki/Home)
+   * [Rails](https://github.com/rails/rails)
+   * [Rspec-rails](https://github.com/rspec/rspec)
+   * [Shoulda-callback-matchers](https://github.com/jdliss/shoulda-callback-matchers)
+   * [Shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers/)
+   
+    
