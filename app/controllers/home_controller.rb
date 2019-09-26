@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   end
 
   def most_popular
-    @most_popular_urls = Url.most_popular
+    @most_popular_urls = Url.most_popular(popular_params[:qty])
   end
 
   def create_shortened_url
@@ -36,5 +36,9 @@ class HomeController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def url_params
     params.require(:url).permit(:full_url)
+  end
+
+  def popular_params
+    params.permit(:qty)
   end
 end
