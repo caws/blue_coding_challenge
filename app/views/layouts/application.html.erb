@@ -10,6 +10,10 @@
   </head>
 
   <body>
-    <%= yield %>
+  <%= render 'partials/navbar' %>
+    <div class="col-12" style="margin-top: 8%; margin-bottom: 20%;">
+        <%= yield %>
+    </div>
+  <%= render 'partials/footer' %>
   </body>
 </html>

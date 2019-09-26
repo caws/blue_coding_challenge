@@ -1,0 +1,7 @@
+$("#form-div").hide();
+<% if @url.errors.any? %>
+$("#form-div").html("<%= j (render 'home/home_partials/form', url: @url) %>");
+<% else %>
+$("#form-div").html("<%= j (render 'home/home_partials/success_message') %>")
+<% end %>
+$("#form-div").show(500);

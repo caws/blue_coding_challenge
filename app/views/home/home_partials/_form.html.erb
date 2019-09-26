@@ -1,0 +1,12 @@
+<%= form_with(model: url, url: create_shortened_url_path, remote: true) do |form| %>
+  <%= render 'home/home_partials/alerts', model: url %>
+  <div class="form-row">
+    <div class="col-md-9">
+      <%= form.text_field :full_url, type: 'text', class: 'form-control', placeholder: 'Enter your URL...' %>
+    </div>
+
+    <div class="col-md-3">
+      <%= form.submit 'Shorten!', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
