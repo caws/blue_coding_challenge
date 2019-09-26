@@ -21,6 +21,21 @@ class Url < ApplicationRecord
     order(hit_counter: :desc).limit(qty)
   }
 
+  # Method below searches for a given url
+  # using its short url as parameter.
+  # It also increases the hit_counter attribute
+  # in case it succeeds.
+  def self.find_and_increase_counter(short_url)
+    url = Url.find_by_short_url(short_url)
+    url&.increase_hit_counter
+
+    url
+  end
+
+  def increase_hit_counter
+    update(hit_counter: hit_counter + 1)
+  end
+
   # Method below tries to pull the title
   # from the url contained in the full_url
   # attribute.
@@ -71,7 +86,7 @@ class Url < ApplicationRecord
   # Method below visits the url and returns
   # an httparty object
   def visit_full_url
-    HTTParty.get(full_url, timeout: 10)
+    HTTParty.get(full_url, timeout: 10, verify: false)
   end
 
   # Method below creates a job that invokes
