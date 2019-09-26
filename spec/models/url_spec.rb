@@ -31,7 +31,9 @@ RSpec.describe Url, type: :model do
         end
       end
     end
+  end
 
+  describe 'public instance methods' do
     describe '#pull_title_and_set_status' do
       it 'should update the url status' do
         previous_status = url.status
@@ -39,11 +41,19 @@ RSpec.describe Url, type: :model do
         expect(Url.most_popular(50)).not_to be(previous_status)
       end
     end
+
+    describe '#increase_hit_counter' do
+      it 'should increase the hit_counter' do
+        previous_counter = url.hit_counter
+        url.increase_hit_counter
+        expect(url.hit_counter).to match(previous_counter + 1)
+      end
+    end
   end
 
   describe 'private instance methods' do
     describe '#shorten_url' do
-      it 'should shorten the full_url and save it to short_url with lenght <= 6' do
+      it 'should shorten the full_url and save it to short_url with length <= 6' do
         expect(url.short_url.length).to be <= 6
       end
     end
