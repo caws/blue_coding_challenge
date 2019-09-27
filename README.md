@@ -1,5 +1,9 @@
 # URL Shortener Challenge
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/a183c916c52c782094b1/maintainability)](https://codeclimate.com/github/caws/blue_coding_challenge/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a183c916c52c782094b1/test_coverage)](https://codeclimate.com/github/caws/blue_coding_challenge/test_coverage)
+[![Build Status](https://travis-ci.org/caws/blue_coding_challenge.svg?branch=master)](https://travis-ci.org/caws/blue_coding_challenge)
+
 ### The challenge
 
 Your mission, should you choose to accept it, is to make a URL shortener API.
@@ -18,7 +22,7 @@ Ruby 2.6.3
 * bundle install
 * rails s
 
-### Shortening algorithm - The core of this application
+### The shortening algorithm
 
 The shortening algorithm behind this application is a very basic one in nature.
 
