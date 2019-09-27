@@ -11,5 +11,27 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe HomeHelper, type: :helper do
-  # pending "add some examples to (or delete) #{__FILE__}"
+  let(:url) { FactoryBot.create(:url) }
+  describe '#generate_badge' do
+    context 'a url with status up' do
+      it 'should generate a span tag with badge-success' do
+        url.status = 'up'
+        expect(generate_badge(url).to_param).to eq('<span class="badge badge-pill badge-success">Up</span>')
+      end
+    end
+
+    context 'a url with status down' do
+      it 'should generate a span tag with badge-danger' do
+        url.status = 'down'
+        expect(generate_badge(url).to_param).to eq('<span class="badge badge-pill badge-danger">Down</span>')
+      end
+    end
+
+    context 'a url with status unverified' do
+      it 'should generate a span tag with badge-info' do
+        url.status = 'unverified'
+        expect(generate_badge(url).to_param).to eq('<span class="badge badge-pill badge-info">Unverified</span>')
+      end
+    end
+  end
 end
