@@ -10,9 +10,8 @@ RSpec.describe HomeController, type: :controller do
 
   describe "GET #visit_shortened_url" do
     it "should enter redirection page" do
-      base_url = Url.first
-      get :visit_shortened_url, params: {short_url: base_url.short_url}
-      expect(assigns(:url)).to eq(base_url)
+      get :visit_shortened_url, params: {short_url: Url.first.short_url}
+      expect(assigns(:url)).to eq(Url.first)
     end
   end
 
