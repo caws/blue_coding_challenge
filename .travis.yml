@@ -11,7 +11,7 @@ before_install:
 addons:
   postgresql: 9.6
 before_script:
-  - cp config/database.yml.travis config/database.yml
+  - cp config/database.travis.yml config/database.yml
   - psql -c 'create database url_shortener_test;' -U postgres
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
